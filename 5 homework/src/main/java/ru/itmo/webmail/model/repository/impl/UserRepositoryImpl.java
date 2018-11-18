@@ -40,7 +40,6 @@ public class UserRepositoryImpl extends CommonRepositoryImpl implements UserRepo
     public User findByEmailAndPasswordSha(String email, String passwordSha) {
         return (User) super.findByParams("User", new Pair[] {new Pair("email", email), new Pair("passwordSha", passwordSha)});
     }
-    //todo вынести в общем виде в CommonRepositoryImp
     @Override
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
@@ -66,6 +65,8 @@ public class UserRepositoryImpl extends CommonRepositoryImpl implements UserRepo
                 // No operations.
             } else if ("creationTime".equalsIgnoreCase(columnName)) {
                 user.setCreationTime(resultSet.getTimestamp(i));
+            } else if ("confirmed".equalsIgnoreCase(columnName)) {
+                user.setConfirmed(resultSet.getBoolean(i));
             } else {
                 throw new RepositoryException("Unexpected column 'User." + columnName + "'.");
             }
@@ -77,6 +78,11 @@ public class UserRepositoryImpl extends CommonRepositoryImpl implements UserRepo
     public void save(User user, String passwordSha, String email) {
         super.insert("User", user, new Pair[] {new Pair("login", user.getLogin()),
                 new Pair("email", email), new Pair("passwordSha", passwordSha)});
+    }
+
+    @Override
+    public void confirmed(long userId) {
+        super.update("User", new PairOfPair(new Pair("id", userId), new Pair("confirmed", true)));
     }
 
     private Date findCreationTime(long userId) {

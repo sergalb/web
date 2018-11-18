@@ -13,20 +13,18 @@ public class RegisterPage extends Page {
         User user = new User();
         user.setLogin(request.getParameter("login"));
         String password = request.getParameter("password");
-        String email = request.getParameter("email");
-        user.setEmail(email);
-
+        user.setEmail(request.getParameter("email"));
         try {
-            getUserService().validateRegistration(user, password, email);
+            getUserService().validateRegistration(user, password);
         } catch (ValidationException e) {
             view.put("login", user.getLogin());
-            view.put("email", email);
+            view.put("email", user.getEmail());
             view.put("password", password);
             view.put("error", e.getMessage());
             return;
         }
-            getUserService().register(user, password, getConfirmationService());
-            throw new RedirectException("/index", "registrationDone");
+        getUserService().register(user, password, getConfirmationService());
+        throw new RedirectException("/index", "registrationDone");
 }
 
 

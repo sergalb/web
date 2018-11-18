@@ -9,6 +9,9 @@ public class Confirm extends Domain {
         this.userId = userId;
     }
 
+    public Confirm() {
+    }
+
     public String getSecret() {
         return secret;
     }

@@ -12,7 +12,6 @@ public class EnterPage extends Page {
     private void enter(HttpServletRequest request, Map<String, Object> view) {
         String loginOrEmail = request.getParameter("loginOrEmail");
         String password = request.getParameter("password");
-
         try {
             getUserService().validateEnter(loginOrEmail, password);
         } catch (ValidationException e) {

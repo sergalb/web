@@ -17,7 +17,7 @@ public class UserService {
 
     private UserRepository userRepository = new UserRepositoryImpl();
     //private ConfirmationRepository confirmationRepository = new ConfirmationRepositoryImpl();
-    public void validateRegistration(User user, String password, String email) throws ValidationException {
+    public void validateRegistration(User user, String password) throws ValidationException {
         if (user.getLogin() == null || user.getLogin().isEmpty()) {
             throw new ValidationException("Login is required");
         }
@@ -30,13 +30,13 @@ public class UserService {
         if (userRepository.findByLogin(user.getLogin()) != null) {
             throw new ValidationException("Login is already in use");
         }
-        if (email == null || email.isEmpty()) {
+        if (user.getEmail() == null || user.getEmail().isEmpty()) {
             throw new ValidationException("email is required");
         }
-        if (!email.matches("[-.\\w]+@(?:[a-z\\d]{2,}\\.)+[a-z]{2,6}")) {
+        if (!user.getEmail().matches("[-.\\w]+@(?:[a-z\\d]{2,}\\.)+[a-z]{2,6}")) {
             throw new ValidationException("incorrect email");
         }
-        if (userRepository.findByEmail(email) != null) {
+        if (userRepository.findByEmail(user.getEmail()) != null) {
             throw new ValidationException("Email is already in use");
         }
         if (password == null || password.isEmpty()) {
@@ -73,9 +73,14 @@ public class UserService {
         if (password.length() > 32) {
             throw new ValidationException("Password can't be longer than 32");
         }
-        if (userRepository.findByLoginAndPasswordSha(loginOrEmail, getPasswordSha(password)) == null &&
-            userRepository.findByEmailAndPasswordSha(loginOrEmail, getPasswordSha(password)) == null) {
+        User user = userRepository.findByLoginAndPasswordSha(loginOrEmail, getPasswordSha(password));
+        if (user == null) {
+            user = userRepository.findByEmailAndPasswordSha(loginOrEmail, getPasswordSha(password));
+        }
+        if (user == null) {
             throw new ValidationException("Invalid login/email or password");
+        } if (!user.isConfirmed()) {
+            throw new ValidationException("Your email isn't confirmed");
         }
     }
 
@@ -88,6 +93,10 @@ public class UserService {
         User result = userRepository.findByLoginAndPasswordSha(loginOrEmail, getPasswordSha(password));
         return (result != null) ? result :
                 userRepository.findByEmailAndPasswordSha(loginOrEmail, getPasswordSha(password));
+    }
+
+    public void confirmedEmail(long userId) {
+        userRepository.confirmed(userId);
     }
 
     public User find(long userId) {

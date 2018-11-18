@@ -12,4 +12,5 @@ public interface UserRepository extends CommonRepository{
     User findByEmailAndPasswordSha(String email, String passwordSha);
     List<User> findAll();
     void save(User user, String passwordSha, String email);
+    void confirmed(long userId);
 }

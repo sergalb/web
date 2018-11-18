@@ -1,5 +1,6 @@
 package ru.itmo.webmail.model.service;
 
+import ru.itmo.webmail.model.domain.Confirm;
 import ru.itmo.webmail.model.exception.ValidationException;
 import ru.itmo.webmail.model.repository.CommonRepository;
 import ru.itmo.webmail.model.repository.ConfirmationRepository;
@@ -21,14 +22,13 @@ public class ConfirmationService {
         sendMessage(sb.toString(), email);
     }
     private void sendMessage(String secret, String email) {
-        System.out.println(secret + " как бы отправили сообщение на " + email);
+        System.out.println("localhost:8080/confirm?secret=" + secret +" как бы отправили сообщение на " + email);
     }
-/*
+
     public long validateConfirm(String secret) throws ValidationException{
-        long userId;
-        if (userId == confirmationRepository.UserBySecret(secret)){
-            return
-        }
-        else throw new ValidationException("sfsfsdf");
-    }*/
+        Confirm confirm = confirmationRepository.UserBySecret(secret);
+        if (confirm != null){
+            return confirm.getUserId();
+        } else throw new ValidationException("Your email isn't confirmed");
+    }
 }

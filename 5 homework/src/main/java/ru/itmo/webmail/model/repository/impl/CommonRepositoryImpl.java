@@ -1,9 +1,7 @@
 package ru.itmo.webmail.model.repository.impl;
 
-import javafx.util.Pair;
 import ru.itmo.webmail.model.database.DatabaseUtils;
 import ru.itmo.webmail.model.domain.TableObject;
-import ru.itmo.webmail.model.domain.User;
 import ru.itmo.webmail.model.exception.RepositoryException;
 import ru.itmo.webmail.model.repository.CommonRepository;
 
@@ -83,6 +81,24 @@ abstract class CommonRepositoryImpl implements CommonRepository{
             throw new RepositoryException("Can't save " + tableName + ".", e);
         }
     }
+
+    public void update(String tableName, PairOfPair parametrs) {
+        StringBuilder requestDB = new StringBuilder();
+        requestDB.append(parametrs.getValue().getName()).append("=?").append(" WHERE ")
+               .append(parametrs.getKey().getName()).append("=?");
+
+        try (Connection connection = DATA_SOURCE.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE "+ tableName + " SET " + requestDB, Statement.RETURN_GENERATED_KEYS)) {
+                setStatement(statement, new Pair[] {parametrs.getValue(), parametrs.getKey()});
+                if (statement.executeUpdate() != 1) {
+                    throw new RepositoryException("Can't update " + parametrs.getValue().getName() + " in " + tableName + ".");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RepositoryException("Can't save " + tableName + ".", e);
+        }
+    }
     public List<TableObject> findAll(String tableName, String parameter) {
         List<TableObject> tableObjects = new ArrayList<>();
         try (Connection connection = DATA_SOURCE.getConnection()) {
@@ -95,7 +111,7 @@ abstract class CommonRepositoryImpl implements CommonRepository{
                 }
             }
         } catch (SQLException e) {
-            throw new RepositoryException("Can't findBy"+tableName + "Id all "+ tableName +"s.", e);
+            throw new RepositoryException("Can't findBy" + tableName + "Id all "+ tableName +"s.", e);
         }
         return tableObjects;
     }
@@ -106,6 +122,8 @@ abstract class CommonRepositoryImpl implements CommonRepository{
                 statement.setString(i+1, (String) parametrs[i].getValue());
             } else if (curClass.equals(Long.class)) {
                 statement.setLong(i+1, (Long) parametrs[i].getValue());
+            } else if (curClass.equals(Boolean.class)) {
+                statement.setBoolean(i+1, (Boolean) parametrs[i].getValue());
             }
         }
     }
