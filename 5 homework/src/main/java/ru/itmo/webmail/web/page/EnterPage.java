@@ -20,11 +20,9 @@ public class EnterPage extends Page {
             view.put("error", e.getMessage());
             return;
         }
-
         User user = getUserService().authorize(loginOrEmail, password);
         getEventService().doEvent(user.getId(), "enter");
         request.getSession(true).setAttribute(USER_ID_SESSION_KEY, user.getId());
-
         throw new RedirectException("/index");
     }
 

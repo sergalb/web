@@ -17,12 +17,13 @@ public class ConfirmationRepositoryImpl extends CommonRepositoryImpl implements 
 
     public void setSecret(String secret, long userId) {
         Confirm confirm = new Confirm(secret, userId);
-        super.insert("EmailConfirmation", confirm, new Pair[]{new Pair("userId", userId), new Pair("secret", secret)});
+        super.insert("INSERT INTO EmailConfirmation (userId, secret, creationTime) VALUES (?, ?, NOW())",
+                "EmailConfirmation", confirm, new Object[]{userId, secret});
     }
 
     @Override
     public Confirm UserBySecret(String secret) {
-        return (Confirm) super.findByParams("EmailConfirmation", new Pair[] {new Pair("secret", secret)});
+        return (Confirm) super.findByParams("SELECT * FROM EmailConfirmation WHERE secret=?", "EmailConfirmation", new Object[]{secret});
     }
 
 

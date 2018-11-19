@@ -8,8 +8,8 @@ public interface UserRepository extends CommonRepository{
     User find(long userId);
     User findByLogin(String login);
     User findByEmail(String email);
-    User findByLoginAndPasswordSha(String login, String passwordSha);
-    User findByEmailAndPasswordSha(String email, String passwordSha);
+    User findByLoginOrEmailAndPasswordSha(String loginOrEmail, String passwordSha);
+
     List<User> findAll();
     void save(User user, String passwordSha, String email);
     void confirmed(long userId);

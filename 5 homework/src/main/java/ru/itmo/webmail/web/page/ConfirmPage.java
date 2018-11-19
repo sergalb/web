@@ -19,8 +19,4 @@ public class ConfirmPage extends Page {
         getUserService().confirmedEmail(userId);
         throw new RedirectException("/index", "confirmationDone");
     }
-
-    /*private void action(HttpServletRequest request, Map<String, Object> view) {
-        // No operations.
-    }*/
 }

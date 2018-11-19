@@ -27,7 +27,6 @@ public class RegisterPage extends Page {
         throw new RedirectException("/index", "registrationDone");
 }
 
-
     private void action(HttpServletRequest request, Map<String, Object> view) {
         // No operations.
     }

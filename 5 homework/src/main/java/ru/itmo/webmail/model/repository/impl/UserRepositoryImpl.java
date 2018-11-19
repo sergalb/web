@@ -1,53 +1,46 @@
 package ru.itmo.webmail.model.repository.impl;
 
-import javafx.util.Pair;
-import ru.itmo.webmail.model.database.DatabaseUtils;
 import ru.itmo.webmail.model.domain.TableObject;
 import ru.itmo.webmail.model.domain.User;
 import ru.itmo.webmail.model.exception.RepositoryException;
 import ru.itmo.webmail.model.repository.UserRepository;
 
-import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class UserRepositoryImpl extends CommonRepositoryImpl implements UserRepository {
-    private static final DataSource DATA_SOURCE = DatabaseUtils.getDataSource();
-
     @Override
     public User find(long userId) {
-        return (User) super.findByParams("User", new Pair[] {new Pair("id", userId)});
+        return (User) super.findByParams("SELECT * FROM User WHERE id=?", "User", new Object[]{userId});
     }
 
     @Override
     public User findByLogin(String login) {
-        return (User) super.findByParams("User", new Pair[] {new Pair("login", login)});
+        return (User) super.findByParams("SELECT * FROM User WHERE login=?", "User", new Object[]{login});
     }
 
     @Override
     public User findByEmail(String email) {
-        return (User) super.findByParams("User", new Pair[] {new Pair("email", email)});
+        return (User) super.findByParams("SELECT * FROM User WHERE email=?", "User", new Object[]{email});
     }
 
     @Override
-    public User findByLoginAndPasswordSha(String login, String passwordSha) {
-        return (User) super.findByParams("User", new Pair[] {new Pair("login", login), new Pair("passwordSha", passwordSha)});
+    public User findByLoginOrEmailAndPasswordSha(String loginOrEmail, String passwordSha) {
+        return (User) super.findByParams("SELECT * FROM User WHERE login=? OR email=? AND passwordSha=?",
+                "User", new Object[]{loginOrEmail, loginOrEmail, passwordSha});
     }
 
-    @Override
-    public User findByEmailAndPasswordSha(String email, String passwordSha) {
-        return (User) super.findByParams("User", new Pair[] {new Pair("email", email), new Pair("passwordSha", passwordSha)});
-    }
     @Override
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
-        List<TableObject> convert = super.findAll("User", "id");
+        List<TableObject> convert = super.findAll("SELECT * FROM User ORDER BY id", "User", new Object[] {});
         for (TableObject aConvert : convert) {
             users.add((User) aConvert);
         }
-        return  users;
+        return users;
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -59,7 +52,7 @@ public class UserRepositoryImpl extends CommonRepositoryImpl implements UserRepo
                 user.setId(resultSet.getLong(i));
             } else if ("login".equalsIgnoreCase(columnName)) {
                 user.setLogin(resultSet.getString(i));
-            }else if ("email".equalsIgnoreCase(columnName)) {
+            } else if ("email".equalsIgnoreCase(columnName)) {
                 user.setEmail(resultSet.getString(i));
             } else if ("passwordSha".equalsIgnoreCase(columnName)) {
                 // No operations.
@@ -76,21 +69,19 @@ public class UserRepositoryImpl extends CommonRepositoryImpl implements UserRepo
 
     @Override
     public void save(User user, String passwordSha, String email) {
-        super.insert("User", user, new Pair[] {new Pair("login", user.getLogin()),
-                new Pair("email", email), new Pair("passwordSha", passwordSha)});
+        super.insert("INSERT INTO User (login, email, passwordSha, creationTime) VALUES (?, ?, ?, NOW())", "User", user,
+                new Object[]{user.getLogin(), email, passwordSha});
     }
 
     @Override
     public void confirmed(long userId) {
-        super.update("User", new PairOfPair(new Pair("id", userId), new Pair("confirmed", true)));
-    }
-
-    private Date findCreationTime(long userId) {
-        return super.findCreationTime(userId, "User");
+        super.update("UPDATE User SET confirmed=? WHERE id=?",
+                "User", new Object[]{true, userId});
     }
 
     @Override
     public TableObject toTableObject(ResultSetMetaData metaData, ResultSet resultSet) throws SQLException {
         return toUser(metaData, resultSet);
     }
+
 }

@@ -1,27 +1,22 @@
 package ru.itmo.webmail.model.repository.impl;
 
-import ru.itmo.webmail.model.database.DatabaseUtils;
 import ru.itmo.webmail.model.domain.Event;
 import ru.itmo.webmail.model.domain.TableObject;
 import ru.itmo.webmail.model.exception.RepositoryException;
 import ru.itmo.webmail.model.repository.EventRepository;
 
-import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.Date;
 
-public class EventRepositoryImpl extends CommonRepositoryImpl implements EventRepository{
+public class EventRepositoryImpl extends CommonRepositoryImpl implements EventRepository {
 
     @Override
     public void doEvent(long userId, String type) {
-        Event event = new Event();
-        event.setUserId(userId);
-        event.setType(type);
-        super.insert("Event", event, new Pair[] {new Pair("userId", userId), new Pair("type", type)});
-    }
-
-    public Event findByUserId(long userId) {
-        return (Event) super.findByParams("Event", new Pair[] {new Pair("userId", userId)});
+        Event event = new Event(userId, type);
+        super.insert("INSERT INTO Event (userId, type, creationTime) VALUES (?, ?, NOW())",
+                "Event", event, new Object[]{userId, type});
     }
 
     private Date findCreationTime(long eventId) {
@@ -48,7 +43,7 @@ public class EventRepositoryImpl extends CommonRepositoryImpl implements EventRe
     }
 
     @Override
-    public TableObject toTableObject(ResultSetMetaData metaData, ResultSet resultSet) throws SQLException{
+    public TableObject toTableObject(ResultSetMetaData metaData, ResultSet resultSet) throws SQLException {
         return toEvent(metaData, resultSet);
     }
 }

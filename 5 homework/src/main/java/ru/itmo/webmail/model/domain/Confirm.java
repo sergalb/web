@@ -8,22 +8,17 @@ public class Confirm extends Domain {
         this.secret = secret;
         this.userId = userId;
     }
-
     public Confirm() {
     }
-
     public String getSecret() {
         return secret;
     }
-
     public void setSecret(String secret) {
         this.secret = secret;
     }
-
     public long getUserId() {
         return userId;
     }
-
     public void setUserId(long userId) {
         this.userId = userId;
     }

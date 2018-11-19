@@ -7,5 +7,5 @@
     <p>${message}</p>
     </#if>
 
-<text>Your email isn't confirmed</text>
+<text>Wrong confirmation link</text>
 </@c.page>

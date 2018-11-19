@@ -1,15 +1,20 @@
 package ru.itmo.webmail.model.domain;
 
 public class Event extends Domain {
-    private long UserId;
+    private long userId;
     private String type;
 
+    public Event(long userId, String type) {
+        this.userId = userId;
+        this.type = type;
+    }
+    public Event(){};
     public long getUserId() {
-        return UserId;
+        return userId;
     }
 
     public void setUserId(long userId) {
-        UserId = userId;
+        this.userId = userId;
     }
 
     public String getType() {

@@ -3,9 +3,7 @@ package ru.itmo.webmail.model.service;
 import com.google.common.hash.Hashing;
 import ru.itmo.webmail.model.domain.User;
 import ru.itmo.webmail.model.exception.ValidationException;
-import ru.itmo.webmail.model.repository.ConfirmationRepository;
 import ru.itmo.webmail.model.repository.UserRepository;
-import ru.itmo.webmail.model.repository.impl.ConfirmationRepositoryImpl;
 import ru.itmo.webmail.model.repository.impl.UserRepositoryImpl;
 
 import java.nio.charset.StandardCharsets;
@@ -14,9 +12,8 @@ import java.util.List;
 @SuppressWarnings("UnstableApiUsage")
 public class UserService {
     private static final String USER_PASSWORD_SALT = "dc3475f2b301851b";
-
     private UserRepository userRepository = new UserRepositoryImpl();
-    //private ConfirmationRepository confirmationRepository = new ConfirmationRepositoryImpl();
+
     public void validateRegistration(User user, String password) throws ValidationException {
         if (user.getLogin() == null || user.getLogin().isEmpty()) {
             throw new ValidationException("Login is required");
@@ -31,10 +28,10 @@ public class UserService {
             throw new ValidationException("Login is already in use");
         }
         if (user.getEmail() == null || user.getEmail().isEmpty()) {
-            throw new ValidationException("email is required");
+            throw new ValidationException("Email is required");
         }
         if (!user.getEmail().matches("[-.\\w]+@(?:[a-z\\d]{2,}\\.)+[a-z]{2,6}")) {
-            throw new ValidationException("incorrect email");
+            throw new ValidationException("Incorrect email");
         }
         if (userRepository.findByEmail(user.getEmail()) != null) {
             throw new ValidationException("Email is already in use");
@@ -73,13 +70,11 @@ public class UserService {
         if (password.length() > 32) {
             throw new ValidationException("Password can't be longer than 32");
         }
-        User user = userRepository.findByLoginAndPasswordSha(loginOrEmail, getPasswordSha(password));
-        if (user == null) {
-            user = userRepository.findByEmailAndPasswordSha(loginOrEmail, getPasswordSha(password));
-        }
+        User user = userRepository.findByLoginOrEmailAndPasswordSha(loginOrEmail, getPasswordSha(password));
         if (user == null) {
             throw new ValidationException("Invalid login/email or password");
-        } if (!user.isConfirmed()) {
+        }
+        if (!user.isConfirmed()) {
             throw new ValidationException("Your email isn't confirmed");
         }
     }
@@ -90,9 +85,7 @@ public class UserService {
     }
 
     public User authorize(String loginOrEmail, String password) {
-        User result = userRepository.findByLoginAndPasswordSha(loginOrEmail, getPasswordSha(password));
-        return (result != null) ? result :
-                userRepository.findByEmailAndPasswordSha(loginOrEmail, getPasswordSha(password));
+        return userRepository.findByLoginOrEmailAndPasswordSha(loginOrEmail, getPasswordSha(password));
     }
 
     public void confirmedEmail(long userId) {
@@ -102,5 +95,4 @@ public class UserService {
     public User find(long userId) {
         return userRepository.find(userId);
     }
-
 }
