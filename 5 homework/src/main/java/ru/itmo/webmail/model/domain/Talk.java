@@ -5,6 +5,16 @@ public class Talk extends Domain {
     private long targetUserId;
     private String sourceUserLogin;
     private String targetUserLogin;
+
+    public Talk(long sourceUserId, long targetUserId, String text) {
+        this.sourceUserId = sourceUserId;
+        this.targetUserId = targetUserId;
+        this.text = text;
+    }
+
+    public Talk() {
+    }
+
     public String getSourceUserLogin() {
         return sourceUserLogin;
     }

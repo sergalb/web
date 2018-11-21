@@ -23,7 +23,8 @@ public class ConfirmationRepositoryImpl extends CommonRepositoryImpl implements 
 
     @Override
     public Confirm UserBySecret(String secret) {
-        return (Confirm) super.findByParams("SELECT * FROM EmailConfirmation WHERE secret=?", "EmailConfirmation", new Object[]{secret});
+        return (Confirm) super.findByParams("SELECT * FROM EmailConfirmation WHERE secret=?", "EmailConfirmation",
+                new Object[]{secret}, "invalid confirmation link");
     }
 
 

@@ -33,6 +33,8 @@
             <li><a href="/">Home</a></li>
             <#if user??>
                 <li><a href="/users">Users</a></li>
+                <li><a href="/talks">Talks</a></li>
+
             </#if>
         </ul>
     </nav>

@@ -14,23 +14,26 @@ import java.util.List;
 public class UserRepositoryImpl extends CommonRepositoryImpl implements UserRepository {
     @Override
     public User find(long userId) {
-        return (User) super.findByParams("SELECT * FROM User WHERE id=?", "User", new Object[]{userId});
+        return (User) super.findByParams("SELECT * FROM User WHERE id=?", "User",
+                new Object[]{userId}, "User with id =" + userId + " doesn't exist");
     }
 
     @Override
     public User findByLogin(String login) {
-        return (User) super.findByParams("SELECT * FROM User WHERE login=?", "User", new Object[]{login});
+        return (User) super.findByParams("SELECT * FROM User WHERE login=?", "User",
+                new Object[]{login},"User with login =" + login + " doesn't exist");
     }
 
     @Override
     public User findByEmail(String email) {
-        return (User) super.findByParams("SELECT * FROM User WHERE email=?", "User", new Object[]{email});
+        return (User) super.findByParams("SELECT * FROM User WHERE email=?", "User",
+                new Object[]{email}, "User with email =" + email + " doesn't exist");
     }
 
     @Override
     public User findByLoginOrEmailAndPasswordSha(String loginOrEmail, String passwordSha) {
         return (User) super.findByParams("SELECT * FROM User WHERE login=? OR email=? AND passwordSha=?",
-                "User", new Object[]{loginOrEmail, loginOrEmail, passwordSha});
+                "User", new Object[]{loginOrEmail, loginOrEmail, passwordSha},  "User with this Login/Email and password doesn't exist");
     }
 
     @Override
@@ -76,12 +79,11 @@ public class UserRepositoryImpl extends CommonRepositoryImpl implements UserRepo
     @Override
     public void confirmed(long userId) {
         super.update("UPDATE User SET confirmed=? WHERE id=?",
-                "User", new Object[]{true, userId});
+                "User", new Object[]{true, userId}, "Cant't confirmed User with id = " + userId);
     }
 
     @Override
     public TableObject toTableObject(ResultSetMetaData metaData, ResultSet resultSet) throws SQLException {
         return toUser(metaData, resultSet);
     }
-
 }

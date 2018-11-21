@@ -5,14 +5,14 @@
 <div class="form-box">
     <div class="header">Send message</div>
     <div class="body">
-        <form method="post" action="/talk">
-            <input type="hidden" name="action" value="enter">
+        <form method="post" action="/talks">
+            <input type="hidden" name="action" value="talks">
             <div class="field">
                 <div class="name">
                     <label for="login">Login to whom</label>
                 </div>
                 <div class="value">
-                    <input id="login" name="login" value="${loginDistanation!}"/>
+                    <input id="login" name="login" value="${login!}"/>
                 </div>
             </div>
             <div class="field">
@@ -20,7 +20,8 @@
                     <label for="text">Text</label>
                 </div>
                 <div class="value">
-                    <input id="text" type="text" name="text" value="${text!}"/>
+                    <textarea id="text" type="text" name="text" value="${text!}"></textarea>
+
                 </div>
             </div>
             <div class="button-field">
@@ -49,10 +50,10 @@
             <#list talks as talk>
             <tr>
                 <td>
-                ${talk.sourceUserLogin}
+                ${talk.getSourceUserLogin()}
                 </td>
                 <td>
-                ${talk.targetUserLogin}
+                ${talk.getTargetUserLogin()}
                 </td>
                 <td>
                 ${talk.text}

@@ -14,11 +14,10 @@ public class Page {
     static final String USER_ID_SESSION_KEY = "userId";
     private UserService userService = new UserService();
     private EventService eventService = new EventService();
-
     private TalkService talkService = new TalkService();
-
     private ConfirmationService confirmationService = new ConfirmationService();
     private User user;
+
     TalkService getTalkService() {
         return talkService;
     }

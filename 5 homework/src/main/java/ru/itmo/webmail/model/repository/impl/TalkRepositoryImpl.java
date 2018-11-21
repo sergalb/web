@@ -2,8 +2,8 @@ package ru.itmo.webmail.model.repository.impl;
 
 import ru.itmo.webmail.model.domain.TableObject;
 import ru.itmo.webmail.model.domain.Talk;
-import ru.itmo.webmail.model.domain.User;
 import ru.itmo.webmail.model.exception.RepositoryException;
+import ru.itmo.webmail.model.repository.TalkRepository;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -11,15 +11,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TalkRepositoryImpl extends CommonRepositoryImpl {
+public class TalkRepositoryImpl extends CommonRepositoryImpl implements TalkRepository {
+
     public List<Talk> findAllTalksByUser(long userId) {
         List<Talk> talks = new ArrayList<>();
         List<TableObject> convert = super.findAll("SELECT * FROM Talk WHERE sourceUserId=? OR targetUserId=?",
-                "Talk", new Object[] {userId});
+                "Talk", new Object[]{userId, userId});
         for (TableObject aConvert : convert) {
+            Talk talk = (Talk) aConvert;
             talks.add((Talk) aConvert);
         }
         return talks;
+    }
+
+    @Override
+    public void setMessage(long sourceId, long targetId, String text) {
+        Talk talk = new Talk(sourceId, targetId, text);
+        super.insert("INSERT INTO Talk (sourceUserId, targetUserId, text, creationTime) VALUES (?, ?, ?, NOW())",
+                "Talk", talk, new Object[] {sourceId, targetId, text});
     }
 
     @Override

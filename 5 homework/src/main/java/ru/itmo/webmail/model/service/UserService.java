@@ -95,4 +95,8 @@ public class UserService {
     public User find(long userId) {
         return userRepository.find(userId);
     }
+    public User findId(String loginDestination) {
+        return userRepository.findByLogin(loginDestination);
+    }
+
 }

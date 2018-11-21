@@ -14,7 +14,7 @@ import java.util.List;
 abstract class CommonRepositoryImpl implements CommonRepository {
     private static final DataSource DATA_SOURCE = DatabaseUtils.getDataSource();
 
-    public TableObject findByParams(String requestDB, String tableName, Object[] parameters) {
+    public TableObject findByParams(String requestDB, String tableName, Object[] parameters, String errorMessage) {
         try (Connection connection = DATA_SOURCE.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(requestDB)) {
                 setStatement(statement, parameters);
@@ -27,7 +27,7 @@ abstract class CommonRepositoryImpl implements CommonRepository {
                 }
             }
         } catch (SQLException e) {
-            throw new RepositoryException("Can't findBy" + tableName + "Id" + tableName + " by id.", e);
+            throw new RepositoryException(errorMessage);
         }
     }
 
@@ -62,21 +62,21 @@ abstract class CommonRepositoryImpl implements CommonRepository {
                         throw new RepositoryException("Can't findBy" + tableName + "Id id of saved " + tableName + ".");
                     }
                 } else {
-                    throw new RepositoryException("Can't save " + tableName + ".");
+                    throw new RepositoryException("Can't save " + tableName);
                 }
             }
         } catch (SQLException e) {
-            throw new RepositoryException("Can't save " + tableName + ".", e);
+            throw new RepositoryException("Can't save " + tableName, e);
         }
     }
 
-    public void update(String requestDB, String tableName, Object[] parameters) {
+    public void update(String requestDB, String tableName, Object[] parameters, String errorMessage) {
         try (Connection connection = DATA_SOURCE.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(
                     requestDB, Statement.RETURN_GENERATED_KEYS)) {
                 setStatement(statement, parameters);
                 if (statement.executeUpdate() != 1) {
-                    throw new RepositoryException("Can't update " + "parameters.getValue().getName()" + " in " + tableName + ".");
+                    throw new RepositoryException(errorMessage);
                 }
             }
         } catch (SQLException e) {
@@ -88,14 +88,16 @@ abstract class CommonRepositoryImpl implements CommonRepository {
         List<TableObject> tableObjects = new ArrayList<>();
         try (Connection connection = DATA_SOURCE.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(requestDB)) {
-                try (ResultSet resultSet = statement.executeQuery()) {
+                setStatement(statement, parameters);
+                try (ResultSet resultSet = statement.executeQuery())
+                {
                     while (resultSet.next()) {
                         tableObjects.add(toTableObject(statement.getMetaData(), resultSet));
                     }
                 }
             }
         } catch (SQLException e) {
-            throw new RepositoryException("Can't findBy" + tableName + "Id all " + tableName + "s.", e);
+            throw new RepositoryException("Can't findBy" + tableName + "all", e);
         }
         return tableObjects;
     }
