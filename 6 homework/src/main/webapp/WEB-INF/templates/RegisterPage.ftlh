@@ -16,6 +16,14 @@
             </div>
             <div class="field">
                 <div class="name">
+                    <label for="email">email</label>
+                </div>
+                <div class="value">
+                    <input id="email" name="email" value="${email!}"/>
+                </div>
+            </div>
+            <div class="field">
+                <div class="name">
                     <label for="password">Password</label>
                 </div>
                 <div class="value">
@@ -25,7 +33,11 @@
             <div class="button-field">
                 <input type="submit" value="Register">
             </div>
-            <div class="error"></div>
+            <#if error??>
+                <div class="error">
+                ${error}
+                </div
+            </#if>
         </form>
     </div>
 </div>
@@ -33,9 +45,10 @@
     $(function() {
         $(".register form").submit(function () {
             var login = $(this).find("input[name='login']").val();
+            var email = $(this).find("input[name='email']").val();
             var password = $(this).find("input[name='password']").val();
             var $error = $(this).find(".error").text("");
-            $.post("", {action: "register", login: login, password: password}, function (response) {
+            $.post("", {action: "register", login: login, email: email, password: password}, function (response) {
                 if (response["success"]) {
                     setMessage("You are registered. Welcome!");
                     document.location.href = "/";

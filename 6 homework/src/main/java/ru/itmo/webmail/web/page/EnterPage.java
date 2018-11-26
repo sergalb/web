@@ -7,22 +7,22 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 public class EnterPage extends Page {
-    private void enter(HttpServletRequest request, Map<String, Object> view) {
-        String login = request.getParameter("login");
+    private Map<String, Object> enter(HttpServletRequest request, Map<String, Object> view) {
+        String loginOrEmail = request.getParameter("loginOrEmail");
         String password = request.getParameter("password");
 
         try {
-            getUserService().validateEnter(login, password);
+            getUserService().validateEnter(loginOrEmail, password);
         } catch (ValidationException e) {
-            view.put("login", login);
-            view.put("password", password);
+            view.put("success", false);
             view.put("error", e.getMessage());
-            return;
+            return view;
         }
 
-        login(request, getUserService().authenticate(login, password));
+        login(request, getUserService().authenticate(loginOrEmail, password));
 
-        throw new RedirectException("/index");
+        view.put("success", true);
+        return view;
     }
 
     private void action(HttpServletRequest request, Map<String, Object> view) {

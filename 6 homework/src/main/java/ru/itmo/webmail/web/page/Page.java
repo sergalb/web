@@ -8,16 +8,13 @@ import java.util.Map;
 
 public class Page {
     static final String USER_ID_SESSION_KEY = "userId";
-
     private UserService userService = new UserService();
-
     private User user;
 
-    protected UserService getUserService() {
+    UserService getUserService() {
         return userService;
     }
-
-    protected User getUser() {
+    public User getUser() {
         return user;
     }
 

@@ -12,7 +12,6 @@ import java.util.List;
 @SuppressWarnings("UnstableApiUsage")
 public class UserService {
     private static final String USER_PASSWORD_SALT = "dc3475f2b301851b";
-
     private UserRepository userRepository = new UserRepositoryImpl();
 
     public void validateRegistration(User user, String password) throws ValidationException {
@@ -28,7 +27,15 @@ public class UserService {
         if (userRepository.findByLogin(user.getLogin()) != null) {
             throw new ValidationException("Login is already in use");
         }
-
+        if (user.getEmail() == null || user.getEmail().isEmpty()) {
+            throw new ValidationException("Email is required");
+        }
+        if (!user.getEmail().matches("[-.\\w]+@(?:[a-z\\d]{2,}\\.)+[a-z]{2,6}")) {
+            throw new ValidationException("Incorrect email");
+        }
+        if (userRepository.findByEmail(user.getEmail()) != null) {
+            throw new ValidationException("Email is already in use");
+        }
         if (password == null || password.isEmpty()) {
             throw new ValidationException("Password is required");
         }
@@ -42,24 +49,17 @@ public class UserService {
 
     public void register(User user, String password) {
         String passwordSha = getPasswordSha(password);
-        userRepository.save(user, passwordSha);
+        userRepository.save(user, passwordSha, user.getEmail());
     }
 
     public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    public void validateEnter(String login, String password) throws ValidationException {
-        if (login == null || login.isEmpty()) {
-            throw new ValidationException("Login is required");
+    public void validateEnter(String loginOrEmail, String password) throws ValidationException {
+        if (loginOrEmail == null || loginOrEmail.isEmpty()) {
+            throw new ValidationException("Login/Email is required");
         }
-        if (!login.matches("[a-z]+")) {
-            throw new ValidationException("Login can contain only lowercase Latin letters");
-        }
-        if (login.length() > 8) {
-            throw new ValidationException("Login can't be longer than 8");
-        }
-
         if (password == null || password.isEmpty()) {
             throw new ValidationException("Password is required");
         }
@@ -69,9 +69,9 @@ public class UserService {
         if (password.length() > 32) {
             throw new ValidationException("Password can't be longer than 32");
         }
-
-        if (userRepository.findByLoginAndPasswordSha(login, getPasswordSha(password)) == null) {
-            throw new ValidationException("Invalid login or password");
+        User user = userRepository.findByLoginOrEmailAndPasswordSha(loginOrEmail, getPasswordSha(password));
+        if (user == null) {
+            throw new ValidationException("Invalid login/email or password");
         }
     }
 
@@ -80,11 +80,15 @@ public class UserService {
                 StandardCharsets.UTF_8).toString();
     }
 
-    public User authenticate(String login, String password) {
-        return userRepository.findByLoginAndPasswordSha(login, getPasswordSha(password));
+    public User authenticate(String loginOrEmail, String password) {
+        return userRepository.findByLoginOrEmailAndPasswordSha(loginOrEmail, getPasswordSha(password));
     }
 
     public User find(long userId) {
         return userRepository.find(userId);
     }
+    public User findId(String loginDestination) {
+        return userRepository.findByLogin(loginDestination);
+    }
+
 }

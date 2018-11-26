@@ -11,6 +11,7 @@ public class RegisterPage extends Page {
     private Map<String, Object> register(HttpServletRequest request, Map<String, Object> view) {
         User user = new User();
         user.setLogin(request.getParameter("login"));
+        user.setEmail(request.getParameter("email"));
         String password = request.getParameter("password");
 
         try {

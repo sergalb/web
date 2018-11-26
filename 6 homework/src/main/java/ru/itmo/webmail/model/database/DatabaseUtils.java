@@ -12,7 +12,6 @@ public class DatabaseUtils {
     public static DataSource getDataSource() {
         return DataSourceHolder.INSTANCE;
     }
-
     private static final class DataSourceHolder {
         private static final DataSource INSTANCE;
         private static final Properties PROPERTIES = new Properties();
