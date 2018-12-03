@@ -69,8 +69,7 @@ public class UserService {
         if (password.length() > 32) {
             throw new ValidationException("Password can't be longer than 32");
         }
-        User user = userRepository.findByLoginOrEmailAndPasswordSha(loginOrEmail, getPasswordSha(password));
-        if (user == null) {
+        if (userRepository.findByLoginOrEmailAndPasswordSha(loginOrEmail, getPasswordSha(password)) == null) {
             throw new ValidationException("Invalid login/email or password");
         }
     }

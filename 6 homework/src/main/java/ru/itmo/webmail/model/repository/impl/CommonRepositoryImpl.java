@@ -12,9 +12,9 @@ import java.util.Date;
 import java.util.List;
 
 abstract class CommonRepositoryImpl implements CommonRepository {
-    private static final DataSource DATA_SOURCE = DatabaseUtils.getDataSource();
+    protected static final DataSource DATA_SOURCE = DatabaseUtils.getDataSource();
 
-    public TableObject findByParams(String requestDB, String tableName, Object[] parameters, String errorMessage) {
+    public TableObject findByParams(String requestDB, Object[] parameters, String errorMessage) {
         try (Connection connection = DATA_SOURCE.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(requestDB)) {
                 setStatement(statement, parameters);
@@ -27,7 +27,7 @@ abstract class CommonRepositoryImpl implements CommonRepository {
                 }
             }
         } catch (SQLException e) {
-            throw new RepositoryException(errorMessage);
+            throw new RepositoryException(errorMessage, e);
         }
     }
 

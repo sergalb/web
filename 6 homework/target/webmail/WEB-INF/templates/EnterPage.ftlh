@@ -25,11 +25,7 @@
             <div class="button-field">
                 <input type="submit" value="Enter">
             </div>
-            <#if error??>
-            <div class="error">
-                ${error}
-            </div>
-            </#if>
+            <div class="error"></div>
         </form>
     </div>
 </div>

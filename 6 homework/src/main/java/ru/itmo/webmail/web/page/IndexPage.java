@@ -1,6 +1,9 @@
 package ru.itmo.webmail.web.page;
 
+import ru.itmo.webmail.model.domain.Article;
+
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 public class IndexPage extends Page {
@@ -12,7 +15,11 @@ public class IndexPage extends Page {
         view.put("message", "You have been registered");
     }
 
-    private void confirmationDone(HttpServletRequest request, Map<String, Object> view){
-        view.put("message", "Your email is confirmed");
+    private List<Article> findArticles(HttpServletRequest request, Map<String, Object> view) {
+        List<Article> articles = getArticleService().findAll();
+        for (Article article : articles) {
+            article.setLogin(getUserService().find(article.getUserId()).getLogin());
+        }
+        return articles;
     }
 }

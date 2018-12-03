@@ -9,6 +9,8 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="stylesheet" type="text/css" href="/css/form.css">
     <link rel="stylesheet" type="text/css" href="/css/datatable.css">
+    <link rel="stylesheet" type="text/css" href="/css/article.css">
+
     <script src="/js/jquery-3.3.1.js"></script>
     <script src="/js/app.js"></script>
 </head>
@@ -35,6 +37,7 @@
             <li><a href="/">Home</a></li>
             <#if user??>
                 <li><a href="/users">Users</a></li>
+                <li><a href="/article">Create Article</a></li>
             </#if>
         </ul>
     </nav>

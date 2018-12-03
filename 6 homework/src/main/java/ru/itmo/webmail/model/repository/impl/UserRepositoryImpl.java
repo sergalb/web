@@ -14,26 +14,26 @@ import java.util.List;
 public class UserRepositoryImpl extends CommonRepositoryImpl implements UserRepository {
     @Override
     public User find(long userId) {
-        return (User) super.findByParams("SELECT * FROM User WHERE id=?", "User",
+        return (User) super.findByParams("SELECT * FROM User WHERE id=?",
                 new Object[]{userId}, "User with id =" + userId + " doesn't exist");
     }
 
     @Override
     public User findByLogin(String login) {
-        return (User) super.findByParams("SELECT * FROM User WHERE login=?", "User",
+        return (User) super.findByParams("SELECT * FROM User WHERE login=?",
                 new Object[]{login},"User with login =" + login + " doesn't exist");
     }
 
     @Override
     public User findByEmail(String email) {
-        return (User) super.findByParams("SELECT * FROM User WHERE email=?", "User",
+        return (User) super.findByParams("SELECT * FROM User WHERE email=?",
                 new Object[]{email}, "User with email =" + email + " doesn't exist");
     }
 
     @Override
     public User findByLoginOrEmailAndPasswordSha(String loginOrEmail, String passwordSha) {
         return (User) super.findByParams("SELECT * FROM User WHERE login=? OR email=? AND passwordSha=?",
-                "User", new Object[]{loginOrEmail, loginOrEmail, passwordSha},  "User with this Login/Email and password doesn't exist");
+                new Object[]{loginOrEmail, loginOrEmail, passwordSha},  "User with this Login/Email and password doesn't exist");
     }
 
     @Override

@@ -1,4 +1,11 @@
 package ru.itmo.webmail.model.repository;
 
-public interface ArticleRepository {
+import ru.itmo.webmail.model.domain.Article;
+
+import java.util.List;
+
+public interface ArticleRepository extends CommonRepository {
+    void sendArticle(long id, String title, String text);
+
+    List<Article> findArticles();
 }
