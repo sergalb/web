@@ -8,4 +8,8 @@ public interface ArticleRepository extends CommonRepository {
     void sendArticle(long id, String title, String text);
 
     List<Article> findArticles();
+
+    List<Article> findAllByUser(long userId);
+
+    void updateHidden(long id, boolean hidden);
 }

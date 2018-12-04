@@ -2,7 +2,6 @@ package ru.itmo.webmail.model.repository.impl;
 
 import ru.itmo.webmail.model.domain.Article;
 import ru.itmo.webmail.model.domain.TableObject;
-import ru.itmo.webmail.model.domain.User;
 import ru.itmo.webmail.model.exception.RepositoryException;
 import ru.itmo.webmail.model.repository.ArticleRepository;
 
@@ -10,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArticlePageRepositoryImpl extends CommonRepositoryImpl implements ArticleRepository {
+public class ArticleRepositoryImpl extends CommonRepositoryImpl implements ArticleRepository {
     @Override
     public TableObject toTableObject(ResultSetMetaData metaData, ResultSet resultSet) throws SQLException {
         return toArticle(metaData, resultSet);
@@ -27,6 +26,8 @@ public class ArticlePageRepositoryImpl extends CommonRepositoryImpl implements A
                 article.setTitle(resultSet.getString(i));
             } else if ("text".equalsIgnoreCase(columnName)) {
                 article.setText(resultSet.getString(i));
+            } else if ("hidden".equalsIgnoreCase(columnName)) {
+                article.setHidden(resultSet.getBoolean(i));
             } else if ("creationTime".equalsIgnoreCase(columnName)) {
                 article.setCreationTime(resultSet.getTimestamp(i));
             } else {
@@ -34,6 +35,23 @@ public class ArticlePageRepositoryImpl extends CommonRepositoryImpl implements A
             }
         }
         return article;
+    }
+
+    @Override
+    public void updateHidden(long id, boolean hidden) {
+        super.update("UPDATE Article SET hidden=? WHERE id=?",
+                "Article", new Object[]{!hidden, id}, "Can't hide/show Article with id = " + id);
+    }
+
+    @Override
+    public List<Article> findAllByUser(long userId) {
+        List<Article> articles = new ArrayList<>();
+        List<TableObject> convert = super.findAll("SELECT * FROM Article WHERE userId=? ORDER BY id",
+                "Article", new Object[] {userId});
+        for (TableObject aConvert : convert) {
+            articles.add((Article) aConvert);
+        }
+        return articles;
     }
 
     @Override
