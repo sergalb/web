@@ -32,12 +32,14 @@
             var $body = $(".placeForArticle");
             if (articles.length > 0) {
                 articles.forEach(function (article) {
-                    var $art = cloneTemplate($("template.articleTemplate"));
-                    $art.find(".title").text(article.title);
-                    $art.find(".body").text(article.text);
-                    $art.find(".information").text("By " + article.login);
-                    $art.find(".time").text(article.creationTime);
-                    $body.append($art);
+                    if (!article.hidden) {
+                        var $art = cloneTemplate($("template.articleTemplate"));
+                        $art.find(".title").text(article.title);
+                        $art.find(".body").text(article.text);
+                        $art.find(".information").text("By " + article.login);
+                        $art.find(".time").text(article.creationTime);
+                        $body.append($art);
+                    }
                 });
             }
         })
