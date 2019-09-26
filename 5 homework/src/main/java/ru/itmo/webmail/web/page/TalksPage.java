@@ -44,7 +44,6 @@ public class TalksPage extends Page {
     public void sendMessageDone(HttpServletRequest request, Map<String, Object> view) {
         view.put("talks", MakeCorrectTalks(getTalkService().findAllTalks(getUser().getId())));
         throw new RedirectException("/talks");
-
     }
     private List<Talk> MakeCorrectTalks(List<Talk> talks) {
         for (Talk talk : talks) {

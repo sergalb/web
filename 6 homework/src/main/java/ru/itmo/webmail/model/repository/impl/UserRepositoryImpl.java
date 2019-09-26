@@ -5,9 +5,7 @@ import ru.itmo.webmail.model.domain.User;
 import ru.itmo.webmail.model.exception.RepositoryException;
 import ru.itmo.webmail.model.repository.UserRepository;
 
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +20,26 @@ public class UserRepositoryImpl extends CommonRepositoryImpl implements UserRepo
     public User findByLogin(String login) {
         return (User) super.findByParams("SELECT * FROM User WHERE login=?",
                 new Object[]{login},"User with login =" + login + " doesn't exist");
+    }
+
+    @Override
+    public User findByLoginAndPasswordSha(String login, String passwordSha) {
+        try (Connection connection = DATA_SOURCE.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM User WHERE login=? AND passwordSha=?")) {
+                statement.setString(1, login);
+                statement.setString(2, passwordSha);
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        return toUser(statement.getMetaData(), resultSet);
+                    } else {
+                        return null;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new RepositoryException("Can't find User by id and passwordSha.", e);
+        }
     }
 
     @Override

@@ -20,7 +20,6 @@ public class EnterPage extends Page {
         }
 
         login(request, getUserService().authenticate(loginOrEmail, password));
-
         view.put("success", true);
         return view;
     }

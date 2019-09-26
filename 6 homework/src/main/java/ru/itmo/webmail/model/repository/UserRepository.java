@@ -9,7 +9,7 @@ public interface UserRepository extends CommonRepository{
     User findByLogin(String login);
     User findByEmail(String email);
     User findByLoginOrEmailAndPasswordSha(String loginOrEmail, String passwordSha);
-
+    User findByLoginAndPasswordSha(String loginOrEmail, String passwordSha);
     List<User> findAll();
     void save(User user, String passwordSha, String email);
 }

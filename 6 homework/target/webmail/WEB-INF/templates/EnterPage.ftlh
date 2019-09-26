@@ -8,7 +8,7 @@
             <input type="hidden" name="action" value="enter">
             <div class="field">
                 <div class="name">
-                    <label for="loginOrEmail">Login/Email</label>
+                    <label for="loginOrEmail">Login</label>
                 </div>
                 <div class="value">
                     <input id="loginOrEmail" name="loginOrEmail" value="${loginOrEmail!}"/>

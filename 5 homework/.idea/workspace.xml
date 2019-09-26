@@ -6,7 +6,37 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d14830b6-6b1d-4e43-a201-ca9059b58518" name="Default" comment="correct TalksPage: view users logins, russian language, correct validation" />
+    <list default="true" id="d14830b6-6b1d-4e43-a201-ca9059b58518" name="Default" comment="correct TalksPage: view users logins, russian language, correct validation">
+      <change afterPath="$PROJECT_DIR$/../6 homework/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../6 homework/src/main/webapp/css/article.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/itmo/webmail/web/page/TalksPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/itmo/webmail/web/page/TalksPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ru/itmo/webmail/web/page/TalksPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/itmo/webmail/web/page/TalksPage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/webmail/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/target/webmail/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/webmail/WEB-INF/classes/ru/itmo/webmail/web/page/TalksPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/webmail/WEB-INF/classes/ru/itmo/webmail/web/page/TalksPage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../6 homework/src/main/java/ru/itmo/webmail/model/domain/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/../6 homework/src/main/java/ru/itmo/webmail/model/domain/Article.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../6 homework/src/main/java/ru/itmo/webmail/model/repository/ArticleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../6 homework/src/main/java/ru/itmo/webmail/model/repository/ArticleRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../6 homework/src/main/java/ru/itmo/webmail/model/repository/impl/ArticlePageRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../6 homework/src/main/java/ru/itmo/webmail/model/repository/impl/ArticlePageRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../6 homework/src/main/java/ru/itmo/webmail/model/repository/impl/CommonRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../6 homework/src/main/java/ru/itmo/webmail/model/repository/impl/CommonRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../6 homework/src/main/java/ru/itmo/webmail/model/service/ArticleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../6 homework/src/main/java/ru/itmo/webmail/model/service/ArticleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../6 homework/src/main/java/ru/itmo/webmail/web/StaticFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../6 homework/src/main/java/ru/itmo/webmail/web/StaticFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../6 homework/src/main/java/ru/itmo/webmail/web/page/ArticlePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../6 homework/src/main/java/ru/itmo/webmail/web/page/ArticlePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../6 homework/src/main/java/ru/itmo/webmail/web/page/IndexPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../6 homework/src/main/java/ru/itmo/webmail/web/page/IndexPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../6 homework/src/main/java/ru/itmo/webmail/web/page/Page.java" beforeDir="false" afterPath="$PROJECT_DIR$/../6 homework/src/main/java/ru/itmo/webmail/web/page/Page.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../6 homework/src/main/webapp/WEB-INF/templates/ArticlePage.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/../6 homework/src/main/webapp/WEB-INF/templates/ArticlePage.ftlh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../6 homework/src/main/webapp/WEB-INF/templates/IndexPage.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/../6 homework/src/main/webapp/WEB-INF/templates/IndexPage.ftlh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../6 homework/src/main/webapp/WEB-INF/templates/common.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/../6 homework/src/main/webapp/WEB-INF/templates/common.ftl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../6 homework/target/classes/ru/itmo/webmail/model/repository/impl/CommonRepositoryImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/../6 homework/target/classes/ru/itmo/webmail/model/repository/impl/CommonRepositoryImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../6 homework/target/classes/ru/itmo/webmail/web/StaticFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/../6 homework/target/classes/ru/itmo/webmail/web/StaticFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../6 homework/target/classes/ru/itmo/webmail/web/page/IndexPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/../6 homework/target/classes/ru/itmo/webmail/web/page/IndexPage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../6 homework/target/classes/ru/itmo/webmail/web/page/Page.class" beforeDir="false" afterPath="$PROJECT_DIR$/../6 homework/target/classes/ru/itmo/webmail/web/page/Page.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../6 homework/target/webmail.war" beforeDir="false" afterPath="$PROJECT_DIR$/../6 homework/target/webmail.war" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../6 homework/target/webmail/WEB-INF/classes/ru/itmo/webmail/model/repository/impl/CommonRepositoryImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/../6 homework/target/webmail/WEB-INF/classes/ru/itmo/webmail/model/repository/impl/CommonRepositoryImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../6 homework/target/webmail/WEB-INF/classes/ru/itmo/webmail/web/StaticFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/../6 homework/target/webmail/WEB-INF/classes/ru/itmo/webmail/web/StaticFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../6 homework/target/webmail/WEB-INF/classes/ru/itmo/webmail/web/page/IndexPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/../6 homework/target/webmail/WEB-INF/classes/ru/itmo/webmail/web/page/IndexPage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../6 homework/target/webmail/WEB-INF/classes/ru/itmo/webmail/web/page/Page.class" beforeDir="false" afterPath="$PROJECT_DIR$/../6 homework/target/webmail/WEB-INF/classes/ru/itmo/webmail/web/page/Page.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../6 homework/target/webmail/WEB-INF/templates/IndexPage.ftlh" beforeDir="false" afterPath="$PROJECT_DIR$/../6 homework/target/webmail/WEB-INF/templates/IndexPage.ftlh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../6 homework/target/webmail/WEB-INF/templates/common.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/../6 homework/target/webmail/WEB-INF/templates/common.ftl" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -31,8 +61,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ru/itmo/webmail/model/repository/CommonRepository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="14" column="94" selection-start-line="14" selection-start-column="94" selection-end-line="14" selection-end-column="94" />
+            <state relative-caret-position="85">
+              <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -112,19 +142,12 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="webmail" type="b2602c69:ProjectViewProjectNode" />
               <item name="5 homework" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="webmail" type="b2602c69:ProjectViewProjectNode" />
-              <item name="5 homework" type="462c0819:PsiDirectoryNode" />
-              <item name=".idea" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="webmail" type="b2602c69:ProjectViewProjectNode" />
@@ -206,6 +229,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -439,6 +464,7 @@
       <workItem from="1543157813612" duration="1792000" />
       <workItem from="1543160657199" duration="935000" />
       <workItem from="1543162478402" duration="972000" />
+      <workItem from="1543860447147" duration="247000" />
     </task>
     <task id="LOCAL-00001" summary="correct TalksPage: view users logins, russian language, correct validation">
       <created>1543158302348</created>
@@ -451,13 +477,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12330000" />
+    <option name="totallyTimeSpent" value="12577000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27315435" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2771812" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -749,9 +775,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="392">
           <caret line="74" column="52" selection-start-line="74" selection-start-column="52" selection-end-line="74" selection-end-column="52" />
-          <folding>
-            <marker date="1543158606125" expanded="true" signature="1519:1572" ph="SELECT creat... missingValue" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -767,8 +790,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/itmo/webmail/model/repository/CommonRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="14" column="94" selection-start-line="14" selection-start-column="94" selection-end-line="14" selection-end-column="94" />
+        <state relative-caret-position="85">
+          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
         </state>
       </provider>
     </entry>
